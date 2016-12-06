@@ -1,7 +1,7 @@
 {
   "name": "nunjucks-loader",
   "private": true,
-  "version": "1.0.7",
+  "version": "1.0.8-0",
   "description": "A nunjucks loader for webpack.",
   "main": "index.js",
   "scripts": {
