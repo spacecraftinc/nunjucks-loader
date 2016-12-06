@@ -63,7 +63,7 @@ module.exports = function (source) {
     }
     compiledTemplate += 'var dependencies = nunjucks.webpackDependencies || (nunjucks.webpackDependencies = {});\n';
 
-    compiledTemplate += 'var env = new nunjucks.Environment([], { autoescape: true });\n';
+    compiledTemplate += 'var env = new nunjucks.Environment([]);\n';
 
     if (pathToConfigure){
         compiledTemplate += 'var configure = require("' + slash(pathToConfigure) + '")(env);\n';
