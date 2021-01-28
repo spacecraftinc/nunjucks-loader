@@ -98,7 +98,7 @@ module.exports = function (source) {
     }
     compiledTemplate += 'var env;\n';
     compiledTemplate += 'if (!nunjucks.currentEnv){\n';
-    compiledTemplate += '\tenv = nunjucks.currentEnv = new nunjucks.Environment([], { autoescape: true });\n';
+    compiledTemplate += '\tenv = nunjucks.currentEnv = new nunjucks.Environment([], { autoescape: false });\n';
     compiledTemplate += '} else {\n';
     compiledTemplate += '\tenv = nunjucks.currentEnv;\n';
     compiledTemplate += '}\n';
