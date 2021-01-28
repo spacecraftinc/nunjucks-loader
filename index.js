@@ -25,11 +25,11 @@ module.exports = function (source) {
     this.cacheable();
 
     if (!hasRun){
-        var query = loaderUtils.parseQuery(this.query);
-
+        var query = loaderUtils.getOptions(this);
+        var envOpts = query.opts || {};
         if (query){
 
-            env = new nunjucks.Environment([], query.opts || {});
+            env = new nunjucks.Environment([], envOpts);
 
             if (query.config){
                 pathToConfigure = query.config;
@@ -73,7 +73,7 @@ module.exports = function (source) {
         hasRun = true;
     }
 
-    var name = slash(path.relative(root || this.options.context, this.resourcePath));
+    var name = slash(path.relative(root || this.rootContext || this.options.context, this.resourcePath));
 
     var nunjucksCompiledStr = nunjucks.precompileString(source, {
             env: env,
@@ -98,7 +98,7 @@ module.exports = function (source) {
     }
     compiledTemplate += 'var env;\n';
     compiledTemplate += 'if (!nunjucks.currentEnv){\n';
-    compiledTemplate += '\tenv = nunjucks.currentEnv = new nunjucks.Environment([], { autoescape: true });\n';
+    compiledTemplate += '\tenv = nunjucks.currentEnv = new nunjucks.Environment([], ' + JSON.stringify(envOpts) + ');\n';
     compiledTemplate += '} else {\n';
     compiledTemplate += '\tenv = nunjucks.currentEnv;\n';
     compiledTemplate += '}\n';
