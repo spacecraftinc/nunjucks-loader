@@ -1,5 +1,7 @@
 # Nunjucks loader for webpack
 
+- Forked from https://github.com/niksy/nunjucks-loader/tree/loader-utils-upgrade as a first step towards webpack 5 support
+
 - `require` precompiled templates in webpack
 - supports `extends` and `include`
 - resolves template dependencies using `require`
@@ -82,11 +84,11 @@ Eg.
 A custom nunjucks.Environment is used by the loader, to configure the nunjucks environment:
 
 - To pass [nunjucks.Environment options](https://mozilla.github.io/nunjucks/api.html#environment), add a `opts` key to
- the nunjucks loader query in webpack.config.js
+ the nunjucks loader options in webpack.config.js
 - Create a file that will configure the environment. This should export a function that receives the nunjucks
  environment as its first argument.
-- Add a `config` key to the nunjucks-loader query in webpack.config.js
-- Add an optional `quiet` key to the loader query in webpack.config.js to suppress precompile warnings (see below)
+- Add a `config` key to the nunjucks-loader options in webpack.config.js
+- Add an optional `quiet` key to the loader options in webpack.config.js to suppress precompile warnings (see below)
 
 ``` javascript
 // file: src/nunjucks.config.js
@@ -116,7 +118,7 @@ module.exports = {
             {
                 test: /\.(njk|nunjucks)$/,
                 loader: 'nunjucks-loader',
-                query: {
+                options: {
                     config: __dirname + '/src/nunjucks.config.js'
                 }
             }
@@ -136,7 +138,7 @@ __If using async filters or custom extensions with nunjucks__, they must be avai
 When using webpack resolve with the environment config and __not__ using async filters or custom extensions, the warning
  can be safely ignored - standard filters are still added to the environment at runtime.
 
-To remove the warning, pass the `quiet` option in the loader query. eg:
+To remove the warning, pass the `quiet` option in the loader options. eg:
 
 ```
 // file: webpack.config.js
@@ -147,7 +149,7 @@ module.exports = {
             {
                 test: /\.(njk|nunjucks)$/,
                 loader: 'nunjucks-loader',
-                query: {
+                options: {
                     config: __dirname + '/src/nunjucks.config.js',
                     quiet: true // Don't show the 'Cannot configure nunjucks environment before precompile' warning
                 }
@@ -179,7 +181,7 @@ module.exports = {
 }
 ```
 
-Alternatively, a `root` query parameter can be passed to the loader to set the root template directory.
+Alternatively, a `root` options parameter can be passed to the loader to set the root template directory.
 
 ``` javascript
 // webpack.config.js
@@ -189,7 +191,7 @@ module.exports = {
             {
                 test: /\.(nunj|nunjucks)$/,
                 loader: 'nunjucks-loader',
-                query: {
+                options: {
                     root: __dirname + '/path/to/templates'
                 }
             }
@@ -202,7 +204,7 @@ module.exports = {
 ## Jinja/Python compatibility
 
 If [experimental support for Jinja compatibility](https://mozilla.github.io/nunjucks/api.html#installjinjacompat)
-is desired, pass the jinjaCompat option in the loader query. eg:
+is desired, pass the jinjaCompat option in the loader options. eg:
 
 ```
 // file: webpack.config.js
@@ -213,7 +215,7 @@ module.exports = {
             {
                 test: /\.(nunj|nunjucks)$/,
                 loader: 'nunjucks-loader',
-                query: {
+                options: {
                     jinjaCompat: true
                 }
             }
