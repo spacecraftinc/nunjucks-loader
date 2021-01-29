@@ -12,6 +12,7 @@ var slash = require('slash');
 var path = require('path');
 var loaderUtils = require('loader-utils');
 var env;
+var envOpts;
 var hasRun = false;
 var pathToConfigure;
 var jinjaCompatStr;
@@ -26,7 +27,7 @@ module.exports = function (source) {
 
     if (!hasRun){
         var query = loaderUtils.getOptions(this);
-        var envOpts = query.opts || {};
+        envOpts = query.opts || {};
         if (query){
 
             env = new nunjucks.Environment([], envOpts);
